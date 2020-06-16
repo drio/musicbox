@@ -114,8 +114,8 @@ blip.wav:
 endif
 
 play:
-	echo "Starting music .... in 2 seconds";\
-	sleep 2; omxplayer -o alsa:hw:0,0 --pos $(START_AT) wax.ibiza.mp3 & 
+	@echo "Starting music ..."
+	omxplayer -o alsa:hw:0,0 --pos $(START_AT) wax.ibiza.mp3 & 
 
 ifdef IP
 

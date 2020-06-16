@@ -62,4 +62,5 @@ for details.
 
 ### TODO
 
-I still have to make dynamic a few bits that are currently hardcoded.
+- I still have to make dynamic a few bits that are currently hardcoded.
+- I don't have access to the microphone when the system runs via systemd.
