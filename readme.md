@@ -2,6 +2,8 @@
 
 ### Intro
 
+Click the img above to see this project in [action](https://vimeo.com/429636671).
+
 Uses your raspberry pi to create a disco like environment for your room.
 
 When you run this tool (be activating the SR04 sensor), we enable certain lights
@@ -29,7 +31,6 @@ You need:
 - speaker
 
 ![](imgs/pi.png)
-
 ![](imgs/micro.png)
 
 ### Install
