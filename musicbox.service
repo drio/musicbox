@@ -1,11 +1,12 @@
 [Unit]
 Description=Start the musicbox system.
-After=network.target
+After=sound.target
 
 [Service]
 Type=simple
 ExecStart=/usr/bin/make -f /home/pi/musicBox/Makefile
 RemainAfterExit=true
+WorkingDirectory=/home/pi/musicBox
 ExecStop=/usr/bin/pkill -f musicbox.py
 StandardOutput=journal
 StandardError=journal

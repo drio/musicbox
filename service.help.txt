@@ -1,0 +1,8 @@
+service/
+  [install]       : install service in systemd.
+  [uninstall]     : uninstall service in systemd.
+  [check]         : check the service status. 
+  [start_at_boot] : enable service at boot time.
+  [start]         : start service now.
+  [stop]          : stop service now.
+  [logs]          : check the service logs.

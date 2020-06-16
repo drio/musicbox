@@ -1,5 +1,8 @@
 PRJ_NAME=musicBox
+SERVICE_NAME=musicbox
 HOSTNAME=$(shell hostname -s)
+KEY_FILE_EXISTS=$(shell [ -f "./ifttt.key" ] && echo "true" || echo "false")
+KEY=$(shell cat ./ifttt.key)
 
 # Variables you can modify when running make
 NUM_PIXELS?=72
@@ -7,11 +10,11 @@ START_AT?=00:18:00
 
 NUM_PIXELS_MIN_1=$(shell expr $(NUM_PIXELS) - 1)
 
-ifndef KEY
+ifeq '$(KEY_FILE_EXISTS)' 'false'
 $(error KEY env variable not set. Bailing out)
 endif
 
-.PHONY: help run_test watch wax-ibiza.mp3 blip.wav test-sounds audio-config send_udp
+.PHONY: help run_test watch wax-ibiza.mp3 blip.wav test-sounds audio-config send_udp install_service
 
 all: run
 
@@ -25,6 +28,33 @@ help:
 install: /home/pi/audio-reactive-led-strip audio-config
 	sudo apt-get install espeak libatlas-base-dev -y
 	pip3 install SpeechRecognition PyAudio numpy scipy 
+
+service/help:
+	@cat service.help.txt
+
+service/install:
+	sudo cp $(SERVICE_NAME).service /etc/systemd/system/$(SERVICE_NAME).service
+	sudo systemctl daemon-reload
+
+service/uninstall:
+	sudo rm -f /etc/systemd/system/$(SERVICE_NAME).service
+	sudo systemctl daemon-reload
+
+service/check:
+	@sudo systemctl is-enabled --quiet $(SERVICE_NAME) && echo enabled || echo disabled
+	@sudo systemctl is-active --quiet $(SERVICE_NAME) && echo active || echo not-active
+
+service/start_at_boot:
+	sudo systemctl enable $(SERVICE_NAME)
+
+service/start:
+	sudo systemctl start $(SERVICE_NAME)
+
+service/stop:
+	sudo systemctl stop $(SERVICE_NAME)
+
+service/logs:
+	sudo journalctl -u $(SERVICE_NAME).service
 
 office_on: office_main_on colors_left_on colors_right_on
 office_off: office_main_off colors_left_off colors_right_off
@@ -106,5 +136,5 @@ off:
 
 watch:
 	chmod 755 *.py
-	watcher -startcmd -cmd "rsync -avz ../$(PRJ_NAME) $(IP):." -list *
+	watcher -startcmd -cmd "rsync --exclude=.git -avz ../$(PRJ_NAME) $(IP):." -list *
 endif
