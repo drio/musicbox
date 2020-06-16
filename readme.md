@@ -1,3 +1,5 @@
+[![video](imgs/pi.png)](https://vimeo.com/429636671 "See it in action.")
+
 ### Intro
 
 Uses your raspberry pi to create a disco like environment for your room.
