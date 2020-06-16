@@ -26,8 +26,9 @@ You need:
 - usb microphone
 - speaker
 
-![imgs/pi.png]()
-![imgs/micro.png]()
+![](imgs/pi.png)
+
+![](imgs/micro.png)
 
 ### Install
 
